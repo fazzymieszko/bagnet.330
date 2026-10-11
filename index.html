@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BagNet</title>
+        <link href="https://fonts.cdnfonts.com/css/black-family" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/final-front" rel="stylesheet">
+        
+        <style>
+            header {
+                background-color: rgb(79, 0, 29);
+                color: white;
+                font-size: 100px;
+                font-family: 'Final Front', sans-serif;
+                margin: 20px;
+                border: 5px solid rgb(56, 0, 26);
+                padding-left: 10px;
+                padding-bottom: 10px;
+            }
+            body {
+                background-color: rgb(0, 0, 0);
+                color: white;
+                font-family: 'ShadowedBlackWide', sans-serif;
+            }
+            .button {
+                background-color: #ad0137;
+                color: rgb(18, 0, 25);
+                border: 5px solid #000000;
+                border-radius: 5px;
+                padding: 10px 10px;
+                border-color: #ad012c;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                font-size: 25px;
+                margin-right: 20px;
+                cursor: pointer;
+                transition: transform 0.5s ease;
+            }
+            .bt-align {
+                position: relative;
+                left: 3%;
+                right: 2%;
+                display: inline-block;
+            }
+            .button:hover {
+                transform: scale(1.15);
+            }
+            .skibidi {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 30px;
+            }
+            .spacer {
+                height: 30px;
+            }
+            aside {
+                float: left;
+                color: #fffefe;
+                margin: 10px;
+                display: block;
+                text-align: center;
+                width: 20%;
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 25px;
+            }
+            .button.playing {
+                background-color: #e6004c;
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src="logo3.jpg" style="float: right;" height="126px" alt="Logo"> 
+            Bag.Net 330
+            <div class="skibidi">
+                Społeczność internetowa
+            </div>
+        </header>
+        <main>
+            <article>
+                <div class="bt-align">
+                    <a href="https://t.me/arkona.88" class="button">TELEGRAM</a>
+                    <button class="button">FACEBOOK</button>
+                    <a href="https://www.youtube.com/live/R2-2wbRyDAo?si=ZT4z8nfs0KEFzuTb" class="button">YOUTUBE</a>
+                    <button class="button">TIKTOK</button>
+                    <button class="button" id="radioBtn">RADIO</button>
+                    <button class="button" onclick="askPasscode()">ADMINISTRACJA</button>
+                </div>
+                <aside>
+                    <h2>Ogłoszenia parafialne</h2>
+                    <p>Strona powstała z inicjatywy aby zgromadzić społeczność internetową z wielu platform społecznościowych, które zawierają się na Bag.Net 330 by dawać radość z korzystania z formy, którą tu widzimy.</p>
+                </aside>
+                <div class="spacer"></div>
+                <center><img src="logo.jpg" width="60%" alt="Logo Główne"></center>
+            </article>
+        </main>
+        <script>
+            const streamUrl = "https://s.red7.pl/stream256";
+            
+            let radioAudio = null;
+            let isPlaying = false;
+            const radioBtn = document.getElementById("radioBtn");
+
+            radioBtn.addEventListener("click", () => {
+                if (!isPlaying) {
+                    if (!radioAudio) {
+                        radioAudio = new Audio(streamUrl);
+                    } else {
+                        radioAudio.src = streamUrl;
+                    }
+
+                    radioAudio.play().then(() => {
+                        isPlaying = true;
+                        radioBtn.textContent = "RADIO ⏸";
+                        radioBtn.classList.add("playing");
+                    }).catch(error => {
+                        console.error("Błąd odtwarzania radia:", error);
+                        alert("Nie udało się odtworzyć strumienia radiowego.");
+                    });
+                } else {
+                    radioAudio.pause();
+                    radioAudio.src = "";
+                    isPlaying = false;
+                    radioBtn.textContent = "RADIO";
+                    radioBtn.classList.remove("playing");
+                }
+            });
+            
+                function askPasscode() {
+             const passcode = prompt("Podaj kod dostępu:");
+
+            if (passcode === "fazzy39") {
+               window.location.href = "stronka2.html";
+            } else if (passcode !== null) {
+             alert("Nieprawidłowy kod dostępu!");
+            }
+            }
+        </script>
+    </body>
+</html>
