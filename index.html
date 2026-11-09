@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bag.Net Sigma - Cosmic Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #0d0221 0%, #03000b 60%, #000000 100%);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Ekskluzywna ozdobna czcionka z fioletowo-pomarańczowym gradientem */
+    .fancy-title {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 3.5rem;
+      line-height: 1.3;
+      font-weight: 900;
+      background: linear-gradient(135deg, #a855f7 0%, #d946ef 30%, #f97316 70%, #fb923c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.4));
+    }
+
+    .gradient-logo-text {
+      background: linear-gradient(135deg, #4ade80 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .apple-glow {
+      filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.6)) drop-shadow(0 0 8px rgba(220, 38, 38, 0.4));
+    }
+
+    .panel-box {
+      background: rgba(13, 8, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      box-shadow: 0 0 25px rgba(20, 83, 45, 0.2);
+      border-radius: 18px;
+    }
+
+    /* Futurytczna czcionka dla ruchomego napisu */
+    .marquee-font {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1.5px;
+    }
+
+    /* Kolorowy tęczowy gradient dla ruchomego tekstu */
+    .rainbow-text {
+      background: linear-gradient(90deg, #ff007f, #a855f7, #3b82f6, #06b6d4, #10b981, #f59e0b, #ef4444, #ff007f);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowGlow 4s linear infinite;
+    }
+
+    @keyframes rainbowGlow {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* Animacja przesuwania napisu od prawej do lewej */
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .animate-marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 16s linear infinite;
+    }
+
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen">
+
+  <!-- TOP BAR -->
+  <header class="panel-box border-x-0 border-t-0 rounded-none px-6 py-3.5 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- LOGO (Czerwone nie-nagryzione jabłko, brązowy robak, 2 liście) -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
+        <div class="apple-glow">
+          <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+            <path d="M32 16 C18 16 10 26 10 42 C10 56 20 62 32 62 C44 62 54 56 54 42 C54 26 46 16 32 16 Z" fill="url(#red-apple-grad)"/>
+            <path d="M30 16 C32 10 37 6 43 4 C43 9 38 14 32 16 Z" fill="#22c55e"/>
+            <path d="M34 17 C39 12 45 9 51 8 C48 13 41 16 34 17 Z" fill="#86efac"/>
+            <path d="M32 16 C32 12 32 8 33 5" stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
+            <path d="M20 36 Q 26 32, 32 38 T 44 34" stroke="#8b4513" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <circle cx="43" cy="33" r="1" fill="#ffffff"/>
+            <circle cx="43" cy="33" r="0.4" fill="#000000"/>
+            <defs>
+              <linearGradient id="red-apple-grad" x1="10" y1="16" x2="54" y2="62" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ef4444"/>
+                <stop offset="0.5" stop-color="#dc2626"/>
+                <stop offset="1" stop-color="#991b1b"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-black tracking-wider gradient-logo-text">Bag.Net Sigma</h1>
+          <p class="text-[9px] text-green-300/80 font-semibold tracking-widest uppercase">Łączy ludzi w kosmosie</p>
+        </div>
+      </div>
+
+      <!-- LINKI GŁÓWNE -->
+      <nav class="hidden md:flex items-center space-x-1 bg-black/40 p-1 rounded-xl border border-green-500/20">
+        <button onclick="switchView('home')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-green-200 bg-green-900/40 border border-green-500/30 transition">Strona główna</button>
+        <button onclick="switchView('ads')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-emerald-300 hover:bg-white/5 transition"><i class="fa-solid fa-bullhorn mr-1"></i> Tablica Ogłoszeń</button>
+        <button onclick="switchView('youtube')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 hover:bg-white/5 transition"><i class="fa-brands fa-youtube mr-1"></i> YouTube</button>
+        <button onclick="switchView('tiktok')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-cyan-300 hover:bg-white/5 transition"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</button>
+        <button onclick="switchView('telegram')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-sky-400 hover:bg-white/5 transition"><i class="fa-brands fa-telegram mr-1"></i> Telegram</button>
+        <button onclick="switchView('facebook')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-blue-500 hover:bg-white/5 transition"><i class="fa-brands fa-facebook mr-1"></i> Facebook</button>
+      </nav>
+
+      <!-- PROFIL (Właściciel: Sigma@Bot) -->
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2.5 bg-green-950/40 border border-green-500/30 px-3 py-1 rounded-lg">
+          <div class="w-6 h-6 rounded-md bg-green-900 flex items-center justify-center text-green-300 text-xs border border-green-400/30">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-200">Sigma@Bot</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-6 py-6 w-full flex-grow flex items-start justify-center">
+    
+    <!-- ŚRODKOWY PANEL -->
+    <section class="w-full panel-box p-8 flex flex-col items-center justify-start min-h-[550px] relative">
+      
+      <!-- WIDOK 1: STRONA GŁÓWNA -->
+      <div id="view-home" class="view-content flex flex-col items-center text-center space-y-6 w-full pt-4">
+        <div class="space-y-4 w-full">
+          <!-- Nagłówek w kolorze fioletowo-pomarańczowym -->
+          <h2 class="fancy-title tracking-wide py-2">
+            Witaj na Bag.Net Sigma!
+          </h2>
+        </div>
+
+        <!-- Przyciski Szybkiego Dostępu w panelu centralnym -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 w-full max-w-4xl pt-4">
+          <button onclick="switchView('ads')" class="bg-black/60 border border-emerald-500/40 p-4 rounded-xl flex flex-col items-center space-y-2 hover:bg-emerald-950/30 transition">
+            <i class="fa-solid fa-bullhorn text-emerald-400 text-3xl"></i>
+            <span class="text-xs font-bold text-slate-200">Ogłoszenia</span>
+          </button>
+          <button onclick="switchView('youtube')" class="bg-black/60 border border-red-500/40 p-4 rounded-xl flex flex-col items-center space-y-2 hover:bg-red-950/30 transition">
+            <i class="fa-brands fa-youtube text-red-500 text-3xl"></i>
+            <span class="text-xs font-bold text-slate-200">YouTube</span>
+          </button>
+          <button onclick="switchView('tiktok')" class="bg-black/60 border border-cyan-500/40 p-4 rounded-xl flex flex-col items-center space-y-2 hover:bg-cyan-950/30 transition">
+            <i class="fa-brands fa-tiktok text-cyan-400 text-3xl"></i>
+            <span class="text-xs font-bold text-slate-200">TikTok</span>
+          </button>
+          <button onclick="switchView('telegram')" class="bg-black/60 border border-sky-500/40 p-4 rounded-xl flex flex-col items-center space-y-2 hover:bg-sky-950/30 transition">
+            <i class="fa-brands fa-telegram text-sky-400 text-3xl"></i>
+            <span class="text-xs font-bold text-slate-200">Telegram</span>
+          </button>
+          <button onclick="switchView('facebook')" class="bg-black/60 border border-blue-500/40 p-4 rounded-xl flex flex-col items-center space-y-2 hover:bg-blue-950/30 transition">
+            <i class="fa-brands fa-facebook text-blue-500 text-3xl"></i>
+            <span class="text-xs font-bold text-slate-200">Facebook</span>
+          </button>
+        </div>
+
+        <!-- RUCHOMY NAPIS POD IKONAMI -->
+        <div class="w-full max-w-4xl overflow-hidden bg-black/70 border border-purple-500/40 rounded-xl py-3 px-4 mt-6 shadow-[0_0_15px_rgba(168,85,247,0.25)]">
+          <div class="w-full overflow-hidden">
+            <div class="animate-marquee marquee-font text-sm md:text-base font-extrabold tracking-widest flex items-center space-x-3">
+              <span class="text-yellow-400 text-lg"><i class="fa-solid fa-rocket animate-bounce"></i></span>
+              <span class="text-purple-400 text-lg"><i class="fa-solid fa-sparkles"></i></span>
+              <span class="text-cyan-400 text-lg"><i class="fa-solid fa-satellite-dish"></i></span>
+              
+              <span class="rainbow-text px-2">
+                Miło że jesteście pozdrawiamy załoga Bag.Net Sigma....
+              </span>
+
+              <span class="text-pink-500 text-lg"><i class="fa-solid fa-heart"></i></span>
+              <span class="text-emerald-400 text-lg"><i class="fa-solid fa-meteor"></i></span>
+              <span class="text-amber-400 text-lg"><i class="fa-solid fa-star"></i></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- WIDOK: TABLICA OGŁOSZEŃ -->
+      <div id="view-ads" class="view-content hidden flex flex-col w-full text-left space-y-6">
+        <div class="border-b border-emerald-500/30 pb-3 flex justify-between items-center">
+          <h3 class="text-base font-bold text-emerald-400 uppercase tracking-wider"><i class="fa-solid fa-bullhorn mr-2"></i> Tablica Ogłoszeń</h3>
+          <span class="text-xs text-slate-400">Oficjalny Pulpit</span>
+        </div>
+        
+        <div class="w-full bg-black/60 border border-emerald-500/40 p-8 rounded-2xl shadow-lg relative overflow-hidden space-y-4">
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center space-x-3 text-emerald-400">
+            <i class="fa-solid fa-scroll text-2xl"></i>
+            <h4 class="text-lg font-bold">Wiadomość Powitalna</h4>
+          </div>
+          <p class="text-slate-200 text-base md:text-lg leading-relaxed font-medium">
+            Witajcie na mojej stronie, na której będę umieszczał linki i materiały związane z moim hobby. Myślę że się wam spodoba i razem miło spędzimy czas i wspólnie stworzymy społeczność Bag.Net Sigma.
+          </p>
+          <p class="text-slate-300 text-sm md:text-base leading-relaxed border-t border-emerald-500/20 pt-3">
+            Będziemy się rozwijać i wspierać. Jeśli będą chcieli państwo nakręcić wywiad lub po prostu pogadać do kamery czy mikrofonu zapraszam u nas tematyka ogólna byle trzymała dobry smak...
+          </p>
+          <div class="pt-4 flex items-center justify-between border-t border-emerald-500/20 text-xs text-slate-400">
+            <span>Dodano przez: <strong class="text-emerald-400">Sigma@Bot</strong></span>
+            <span>Wielka Społeczność Bag.Net Sigma</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WIDOK: YOUTUBE -->
+      <div id="view-youtube" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-red-500/30 pb-3 flex justify-between items-center">
+          <h3 class="text-base font-bold text-red-400 uppercase tracking-wider"><i class="fa-brands fa-youtube mr-2"></i> Kanał YouTube</h3>
+          <a href="http://www.youtube.com/@FazzyMieszko" target="_blank" class="bg-red-600 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-700 transition">Otwórz w nowej karcie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-red-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-youtube text-red-500 text-6xl animate-pulse"></i>
+          <h4 class="text-lg font-bold text-slate-200">Kanał YouTube: @FazzyMieszko</h4>
+          <p class="text-xs text-slate-400 max-w-md">Kliknij przycisk powyżej lub poniżej, aby przejść bezpośrednio do kanału.</p>
+          <a href="http://www.youtube.com/@FazzyMieszko" target="_blank" class="bg-red-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-red-700 transition flex items-center space-x-2">
+            <i class="fa-brands fa-youtube text-base"></i>
+            <span>Przejdź do http://www.youtube.com/@FazzyMieszko</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- WIDOK: TIKTOK -->
+      <div id="view-tiktok" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-cyan-500/30 pb-3 flex justify-between items-center">
+          <h3 class="text-base font-bold text-cyan-300 uppercase tracking-wider"><i class="fa-brands fa-tiktok mr-2"></i> Profil TikTok</h3>
+          <a href="https://tiktok.com/@TwójProfil" target="_blank" class="bg-cyan-500 text-black px-3 py-1 rounded-lg text-xs font-bold hover:bg-cyan-400 transition">Otwórz w nowej karcie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-cyan-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-tiktok text-cyan-400 text-6xl animate-pulse"></i>
+          <h4 class="text-lg font-bold text-slate-200">Podgląd Profilu TikTok</h4>
+          <p class="text-xs text-slate-400 max-w-md">Tutaj wygenerujesz podgląd swojego profilu z TikToka.</p>
+        </div>
+      </div>
+
+      <!-- WIDOK: TELEGRAM -->
+      <div id="view-telegram" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-sky-500/30 pb-3 flex justify-between items-center">
+          <h3 class="text-base font-bold text-sky-400 uppercase tracking-wider"><i class="fa-brands fa-telegram mr-2"></i> Grupa Telegram</h3>
+          <a href="https://t.me/bagnetka66" target="_blank" class="bg-sky-500 text-black px-3 py-1 rounded-lg text-xs font-bold hover:bg-sky-400 transition">Przejdź do grupy na Telegramie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-sky-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-telegram text-sky-400 text-6xl"></i>
+          <h4 class="text-lg font-bold text-slate-200">Grupa Telegram: bagnetka66</h4>
+          <p class="text-xs text-slate-400 max-w-md">Kliknij poniższy przycisk, aby dołączyć bezpośrednio do grupy na Telegramie.</p>
+          <a href="https://t.me/bagnetka66" target="_blank" class="bg-sky-500 text-black px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-sky-400 transition flex items-center space-x-2">
+            <i class="fa-brands fa-telegram text-base"></i>
+            <span>Otwórz https://t.me/bagnetka66</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- WIDOK: FACEBOOK -->
+      <div id="view-facebook" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-blue-500/30 pb-3 flex justify-between items-center">
+          <h3 class="text-base font-bold text-blue-500 uppercase tracking-wider"><i class="fa-brands fa-facebook mr-2"></i> Strona Facebook</h3>
+          <a href="https://facebook.com/TwójProfil" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-blue-700 transition">Odwiedź Facebooka</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-blue-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-facebook text-blue-500 text-6xl"></i>
+          <h4 class="text-lg font-bold text-slate-200">Społeczność Facebook</h4>
+          <p class="text-xs text-slate-400 max-w-md">Dołącz do naszej grupy oraz obserwuj fanpage na Facebooku.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="panel-box border-x-0 border-b-0 rounded-none px-6 py-3 text-center text-[11px] text-slate-400">
+    © 2026 Bag.Net Sigma — Właściciel: <span class="text-green-400 font-semibold">Sigma@Bot</span>
+  </footer>
+
+  <!-- SKRYPTY -->
+  <script>
+    function switchView(viewName) {
+      const views = document.querySelectorAll('.view-content');
+      views.forEach(view => view.classList.add('hidden'));
+
+      const activeView = document.getElementById('view-' + viewName);
+      if (activeView) {
+        activeView.classList.remove('hidden');
+      }
+    }
+  </script>
+
+</body>
+</html>
