@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bag.Net Sigma - Cosmic Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #0d0221 0%, #03000b 60%, #000000 100%);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .gradient-hero-text {
+      background: linear-gradient(135deg, #86efac 0%, #38bdf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-logo-text {
+      background: linear-gradient(135deg, #4ade80 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .apple-glow {
+      filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.6)) drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
+    }
+
+    .panel-box {
+      background: rgba(13, 8, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      box-shadow: 0 0 25px rgba(20, 83, 45, 0.2);
+      border-radius: 18px;
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen">
+
+  <!-- TOP BAR -->
+  <header class="panel-box border-x-0 border-t-0 rounded-none px-6 py-3.5 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- LOGO (Czerwone jabłko nie-nagryzione, brązowy robak, 2 liście) -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
+        <div class="apple-glow">
+          <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none">
+            <path d="M32 16 C18 16 10 26 10 42 C10 56 20 62 32 62 C44 62 54 56 54 42 C54 26 46 16 32 16 Z" fill="url(#red-apple-grad)"/>
+            <path d="M30 16 C32 10 37 6 43 4 C43 9 38 14 32 16 Z" fill="#22c55e"/>
+            <path d="M34 17 C39 12 45 9 51 8 C48 13 41 16 34 17 Z" fill="#86efac"/>
+            <path d="M32 16 C32 12 32 8 33 5" stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
+            <path d="M20 36 Q 26 32, 32 38 T 44 34" stroke="#78350f" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <circle cx="43" cy="33" r="1" fill="#ffffff"/>
+            <circle cx="43" cy="33" r="0.4" fill="#000000"/>
+            <defs>
+              <linearGradient id="red-apple-grad" x1="10" y1="16" x2="54" y2="62" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ef4444"/>
+                <stop offset="0.5" stop-color="#dc2626"/>
+                <stop offset="1" stop-color="#991b1b"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-black tracking-wider gradient-logo-text">Bag.Net Sigma</h1>
+          <p class="text-[9px] text-green-300/80 font-semibold tracking-widest uppercase">Łączy ludzi w kosmosie</p>
+        </div>
+      </div>
+
+      <!-- NAWIGACJA W GÓRNYM WIERSZU -->
+      <nav class="flex flex-wrap items-center space-x-1 bg-black/40 p-1 rounded-xl border border-green-500/20">
+        <button onclick="switchView('home')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-green-200 bg-green-900/40 border border-green-500/30 transition">Strona główna</button>
+        <button onclick="switchView('parish-ads')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-white/5 transition">Ogłoszenia Parafialne</button>
+        <button onclick="switchView('subpage')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-purple-300 hover:bg-white/5 transition"><i class="fa-solid fa-layer-group mr-1"></i> Moja Podstrona</button>
+        <button onclick="switchView('embed-yt')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 hover:bg-white/5 transition"><i class="fa-brands fa-youtube mr-1"></i> YouTube</button>
+        <button onclick="switchView('embed-tiktok')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-cyan-300 hover:bg-white/5 transition"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</button>
+        <button onclick="switchView('embed-tg')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-blue-400 hover:bg-white/5 transition"><i class="fa-brands fa-telegram mr-1"></i> Telegram</button>
+        <button onclick="switchView('embed-fb')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-blue-600 hover:bg-white/5 transition"><i class="fa-brands fa-facebook mr-1"></i> Facebook</button>
+      </nav>
+
+      <!-- PROFIL WŁAŚCICIELA -->
+      <div class="flex items-center space-x-2.5 bg-green-950/40 border border-green-500/30 px-3 py-1 rounded-lg">
+        <div class="w-6 h-6 rounded-md bg-green-900 flex items-center justify-center text-green-300 text-xs border border-green-400/30">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <span class="text-xs font-bold text-slate-200">Sigma@Bot</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- PEŁNOEKRANOWY PANEL ŚRODKOWY -->
+  <main class="max-w-7xl mx-auto px-6 py-6 w-full flex-grow">
+    
+    <section class="panel-box p-8 flex flex-col items-center justify-start min-h-[520px] w-full relative">
+      
+      <!-- WIDOK 1: STRONA GŁÓWNA -->
+      <div id="view-home" class="view-content flex flex-col items-center text-center space-y-6 w-full py-6">
+        <div class="space-y-3 w-full max-w-2xl">
+          <h2 class="text-3xl md:text-5xl font-black gradient-hero-text tracking-tight leading-normal py-1">
+            Witaj na Bag.Net Sigma!
+          </h2>
+          <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+            Oficjalna platforma kosmiczna. Wybierz zakładkę z górnego menu, aby przeglądać Ogłoszenia Parafialne, materiały na Podstronie lub przejść do moich kanałów społecznościowych. 
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl pt-4">
+          <div onclick="switchView('parish-ads')" class="bg-black/50 border border-green-500/30 p-5 rounded-2xl text-left cursor-pointer hover:border-green-400 transition">
+            <h3 class="text-sm font-bold text-green-400"><i class="fa-solid fa-bullhorn mr-2"></i> Ogłoszenia Parafialne</h3>
+            <p class="text-xs text-slate-400 mt-2">Przeglądaj ogłoszenia. Dodawanie i usuwanie chronione hasłem autorskim.</p>
+          </div>
+          <div onclick="switchView('subpage')" class="bg-black/50 border border-purple-500/30 p-5 rounded-2xl text-left cursor-pointer hover:border-purple-400 transition">
+            <h3 class="text-sm font-bold text-purple-300"><i class="fa-solid fa-pen-to-square mr-2"></i> Moja Podstrona</h3>
+            <p class="text-xs text-slate-400 mt-2">Publikuj filmy, materiały głosowe i opisy po podaniu sekretnego hasła.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- WIDOK 2: OGŁOSZENIA PARAFIALNE -->
+      <div id="view-parish-ads" class="view-content hidden flex flex-col w-full text-left space-y-5">
+        <div class="border-b border-green-500/20 pb-3 flex justify-between items-center">
+          <h3 class="text-base font-bold text-green-400 uppercase tracking-wider"><i class="fa-solid fa-church mr-2"></i> Ogłoszenia Parafialne</h3>
+          <button onclick="requestAuth('ad')" class="bg-green-600/30 border border-green-500/40 text-green-300 px-4 py-2 rounded-xl text-xs font-bold hover:bg-green-600/50 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-key text-xs"></i> Dodaj Ogłoszenie
+          </button>
+        </div>
+
+        <!-- Formularz dodawania ogłoszenia -->
+        <div id="add-ad-form" class="hidden bg-black/60 border border-green-500/30 p-4 rounded-xl space-y-3">
+          <h4 class="text-xs font-bold text-green-300">Dodaj Ogłoszenie Parafialne</h4>
+          <input type="text" id="ad-title" placeholder="Tytuł ogłoszenia..." class="w-full bg-black/80 border border-green-500/30 rounded-lg px-3 py-2 text-xs text-slate-200 outline-none">
+          <textarea id="ad-desc" placeholder="Treść ogłoszenia..." class="w-full bg-black/80 border border-green-500/30 rounded-lg px-3 py-2 text-xs text-slate-200 outline-none h-24 resize-none"></textarea>
+          <div class="flex justify-end space-x-2">
+            <button onclick="closeAddAdModal()" class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg text-xs">Anuluj</button>
+            <button onclick="publishAd()" class="bg-green-600 text-black px-4 py-1.5 rounded-lg text-xs font-bold">Opublikuj</button>
+          </div>
+        </div>
+
+        <!-- Lista ogłoszeń -->
+        <div id="ads-container" class="space-y-3 max-h-[380px] overflow-y-auto pr-2">
+        </div>
+      </div>
+
+      <!-- WIDOK 3: MOJA PODSTRONA -->
+      <div id="view-subpage" class="view-content hidden flex flex-col w-full text-left space-y-5">
+        <div class="border-b border-purple-500/20 pb-3 flex justify-between items-center">
+          <div>
+            <h3 class="text-base font-bold text-purple-300 uppercase tracking-wider"><i class="fa-solid fa-photo-film mr-2"></i> Moja Podstrona (Materiały & Nagrania)</h3>
+            <p class="text-[11px] text-slate-400">Dodawanie i usuwanie materiałów dostępne wyłącznie po podaniu hasła...</p>
+          </div>
+          <button onclick="requestAuth('subpage')" class="bg-purple-600/30 border border-purple-500/40 text-purple-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-purple-600/50 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-key text-xs"></i> Dodaj Wpis / Multimedia
+          </button>
+        </div>
+
+        <!-- Formularz dodawania treści na podstronę -->
+        <div id="add-content-form" class="hidden bg-black/60 border border-purple-500/30 p-4 rounded-xl space-y-3">
+          <h4 class="text-xs font-bold text-purple-300">Dodaj Nowy Wpis (Wideo, Nagranie głosowe, Opis)</h4>
+          <input type="text" id="content-title" placeholder="Tytuł wpisu..." class="w-full bg-black/80 border border-purple-500/30 rounded-lg px-3 py-2 text-xs text-slate-200 outline-none">
+          <select id="content-type" class="w-full bg-black/80 border border-purple-500/30 rounded-lg px-3 py-2 text-xs text-slate-200 outline-none">
+            <option value="text">Opis / Tekst</option>
+            <option value="video">Link Wideo (YouTube / MP4)</option>
+            <option value="audio">Link Nagrania Głosowego (MP3 / Audio)</option>
+          </select>
+          <input type="text" id="content-link" placeholder="Link do pliku/wideo (opcjonalnie dla wideo i głosówek)..." class="w-full bg-black/80 border border-purple-500/30 rounded-lg px-3 py-2 text-xs text-slate-200 outline-none">
+          <textarea id="content-body" placeholder="Opis treści..." class="w-full bg-black/80 border border-purple-500/30 rounded-lg px-3 py-2 text-xs text-slate-200 outline-none h-24 resize-none"></textarea>
+          <div class="flex justify-end space-x-2">
+            <button onclick="closeAddContentModal()" class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg text-xs">Anuluj</button>
+            <button onclick="publishContent()" class="bg-purple-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold">Dodaj Wpis</button>
+          </div>
+        </div>
+
+        <!-- Lista dodanych wpisów na podstronie -->
+        <div id="subpage-items-container" class="space-y-4 max-h-[380px] overflow-y-auto pr-2">
+        </div>
+      </div>
+
+      <!-- WIDOK 4: OKNO YOUTUBE -->
+      <div id="view-embed-yt" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-red-500/20 pb-3 flex justify-between items-center">
+          <h3 class="text-sm font-bold text-red-400 uppercase tracking-wider"><i class="fa-brands fa-youtube mr-2"></i> Kanał YouTube</h3>
+          <a href="https://youtube.com/@TwójKanał" target="_blank" class="bg-red-600/30 border border-red-500/40 text-red-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-red-600/50 transition">Otwórz w nowej karcie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-red-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-youtube text-6xl text-red-500"></i>
+          <div>
+            <h4 class="text-base font-bold text-slate-200">Oficjalny Kanał YouTube</h4>
+            <p class="text-xs text-slate-400 mt-1">Przejdź na YouTube, aby obejrzeć pełną listę moich filmów.</p>
+          </div>
+          <a href="https://youtube.com/@TwójKanał" target="_blank" class="bg-red-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg hover:bg-red-700 transition">Przejdź do YouTube</a>
+        </div>
+      </div>
+
+      <!-- WIDOK 5: OKNO TIKTOK -->
+      <div id="view-embed-tiktok" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-cyan-500/20 pb-3 flex justify-between items-center">
+          <h3 class="text-sm font-bold text-cyan-300 uppercase tracking-wider"><i class="fa-brands fa-tiktok mr-2"></i> Profil TikTok</h3>
+          <a href="https://tiktok.com/@TwójProfil" target="_blank" class="bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-cyan-600/50 transition">Otwórz w nowej karcie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-cyan-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-tiktok text-6xl text-cyan-400"></i>
+          <div>
+            <h4 class="text-base font-bold text-slate-200">Oficjalny Profil TikTok</h4>
+            <p class="text-xs text-slate-400 mt-1">Odwiedź mój profil na TikToku z krótkimi materiałami wideo.</p>
+          </div>
+          <a href="https://tiktok.com/@TwójProfil" target="_blank" class="bg-cyan-500 text-black font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg hover:bg-cyan-400 transition">Przejdź do TikTok</a>
+        </div>
+      </div>
+
+      <!-- WIDOK 6: OKNO TELEGRAM -->
+      <div id="view-embed-tg" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-blue-500/20 pb-3 flex justify-between items-center">
+          <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider"><i class="fa-brands fa-telegram mr-2"></i> Kanał / Bot Telegram</h3>
+          <a href="https://t.me/TwójKanalTelegram" target="_blank" class="bg-blue-600/30 border border-blue-500/40 text-blue-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-blue-600/50 transition">Otwórz w nowej karcie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-blue-500/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-telegram text-6xl text-blue-400"></i>
+          <div>
+            <h4 class="text-base font-bold text-slate-200">Kanał & Kontakt Telegram</h4>
+            <p class="text-xs text-slate-400 mt-1">Dołącz do mojego oficjalnego kanału lub bota na Telegramie.</p>
+          </div>
+          <a href="https://t.me/TwójKanalTelegram" target="_blank" class="bg-blue-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg hover:bg-blue-600 transition">Dołącz na Telegramie</a>
+        </div>
+      </div>
+
+      <!-- WIDOK 7: OKNO FACEBOOK -->
+      <div id="view-embed-fb" class="view-content hidden flex flex-col w-full text-left space-y-4">
+        <div class="border-b border-blue-600/20 pb-3 flex justify-between items-center">
+          <h3 class="text-sm font-bold text-blue-500 uppercase tracking-wider"><i class="fa-brands fa-facebook mr-2"></i> Fanpage Facebook</h3>
+          <a href="https://facebook.com/TwójFanpage" target="_blank" class="bg-blue-700/30 border border-blue-600/40 text-blue-300 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-blue-700/50 transition">Otwórz w nowej karcie</a>
+        </div>
+        <div class="w-full h-96 bg-black/60 rounded-xl border border-blue-600/20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <i class="fa-brands fa-facebook text-6xl text-blue-600"></i>
+          <div>
+            <h4 class="text-base font-bold text-slate-200">Strona Facebook</h4>
+            <p class="text-xs text-slate-400 mt-1">Oficjalna strona na Facebooku.</p>
+          </div>
+          <a href="https://facebook.com/TwójFanpage" target="_blank" class="bg-blue-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-lg hover:bg-blue-700 transition">Odwiedź Facebooka</a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL OKIENKA HASŁA -->
+  <div id="auth-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="panel-box p-6 max-w-sm w-full border border-purple-500/40 space-y-4 text-center">
+      <div class="w-12 h-12 rounded-full bg-purple-900/50 border border-purple-500/40 flex items-center justify-center mx-auto text-purple-300">
+        <i class="fa-solid fa-lock text-xl"></i>
+      </div>
+      <div>
+        <h3 class="text-sm font-bold text-slate-100">Weryfikacja Autora</h3>
+        <p class="text-xs text-slate-400 mt-1">Wpisz 4-znakowe hasło, aby odblokować funkcję dodawania / usuwania wpisów.</p>
+      </div>
+      <input type="password" id="auth-pass-input" maxlength="4" placeholder="Wpisz 4 znaki..." class="w-full bg-black/80 border border-purple-500/40 rounded-xl px-4 py-2 text-center text-sm font-mono tracking-widest text-purple-300 outline-none focus:border-purple-400">
+      <p id="auth-error-msg" class="hidden text-[11px] text-red-400 font-semibold">Błędne hasło! Dostęp zabroniony.</p>
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeAuthModal()" class="w-1/2 bg-slate-800 text-slate-300 py-2 rounded-xl text-xs font-semibold">Anuluj</button>
+        <button onclick="verifyPassword()" class="w-1/2 bg-purple-600 text-white py-2 rounded-xl text-xs font-bold hover:bg-purple-700 transition">Zatwierdź</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="panel-box border-x-0 border-b-0 rounded-none px-6 py-3 text-center text-[11px] text-slate-400">
+    © 2026 Bag.Net Sigma — Właściciel: <span class="text-green-400 font-semibold">Sigma@Bot</span>
+  </footer>
+
+  <!-- SKRYPTY SYSTEMOWE -->
+  <script>
+    const SECRET_PIN = "zazu";
+    let pendingAction = null;
+    let pendingTargetId = null;
+
+    function switchView(viewName) {
+      const views = document.querySelectorAll('.view-content');
+      views.forEach(view => view.classList.add('hidden'));
+
+      const activeView = document.getElementById('view-' + viewName);
+      if (activeView) {
+        activeView.classList.remove('hidden');
+      }
+    }
+
+    // WERYFIKACJA HASŁEM "zazu"
+    function requestAuth(actionType, targetId = null) {
+      pendingAction = actionType;
+      pendingTargetId = targetId;
+      document.getElementById('auth-pass-input').value = '';
+      document.getElementById('auth-error-msg').classList.add('hidden');
+      document.getElementById('auth-modal').classList.remove('hidden');
+      document.getElementById('auth-pass-input').focus();
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-modal').classList.add('hidden');
+      pendingAction = null;
+      pendingTargetId = null;
+    }
+
+    function verifyPassword() {
+      const enteredPass = document.getElementById('auth-pass-input').value;
+      if (enteredPass === SECRET_PIN) {
+        const currentAction = pendingAction;
+        const currentTargetId = pendingTargetId;
+        closeAuthModal();
+
+        if (currentAction === 'ad') {
+          openAddAdModal();
+        } else if (currentAction === 'subpage') {
+          openAddContentModal();
+        } else if (currentAction === 'delete-ad') {
+          executeDeleteAd(currentTargetId);
+        } else if (currentAction === 'delete-subpage') {
+          executeDeleteSubpageItem(currentTargetId);
+        }
+      } else {
+        document.getElementById('auth-error-msg').classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('auth-pass-input').addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') {
+        verifyPassword();
+      }
+    });
+
+    // SKRYPT OGŁOSZEŃ PARAFIALNYCH
+    function checkAdExpirations() {
+      const currentTime = new Date().getTime();
+      const sevenDays = 7 * 24 * 60 * 60 * 1000;
+      let ads = JSON.parse(localStorage.getItem('sigma_parish_ads') || '[]');
+      ads = ads.filter(ad => (currentTime - ad.timestamp) < sevenDays);
+      localStorage.setItem('sigma_parish_ads', JSON.stringify(ads));
+    }
+
+    function loadAds() {
+      checkAdExpirations();
+      const container = document.getElementById('ads-container');
+      let ads = JSON.parse(localStorage.getItem('sigma_parish_ads') || '[]');
+
+      if (ads.length === 0) {
+        ads = [{
+          id: 'ad_def_1',
+          title: "Niedzielne Spotkanie Społeczności",
+          desc: "Zapraszamy wszystkich członków na cotygodniowe podsumowanie projektów kosmicznych.",
+          author: "Sigma@Bot",
+          timestamp: new Date().getTime()
+        }];
+        localStorage.setItem('sigma_parish_ads', JSON.stringify(ads));
+      }
+
+      container.innerHTML = '';
+      ads.forEach(ad => {
+        const adDiv = document.createElement('div');
+        adDiv.className = 'bg-black/50 border border-green-500/20 p-4 rounded-xl flex justify-between items-start space-x-4';
+        adDiv.innerHTML = `
+          <div class="flex-grow">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-green-300"></h4>
+              <span class="text-[9px] text-green-400 font-semibold">Autor: ${ad.author}</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1.5 leading-relaxed"></p>
+          </div>
+          <button onclick="requestAuth('delete-ad', '${ad.id}')" title="Usuń ogłoszenie" class="bg-red-900/30 border border-red-500/30 text-red-400 hover:bg-red-800/50 hover:text-red-200 px-2.5 py-1 rounded-lg text-xs transition">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        `;
+        adDiv.querySelector('h4').textContent = ad.title;
+        adDiv.querySelector('p').textContent = ad.desc;
+        container.appendChild(adDiv);
+      });
+    }
+
+    function openAddAdModal() {
+      document.getElementById('add-ad-form').classList.remove('hidden');
+    }
+
+    function closeAddAdModal() {
+      document.getElementById('add-ad-form').classList.add('hidden');
+      document.getElementById('ad-title').value = '';
+      document.getElementById('ad-desc').value = '';
+    }
+
+    function publishAd() {
+      const title = document.getElementById('ad-title').value.trim();
+      const desc = document.getElementById('ad-desc').value.trim();
+
+      if (title && desc) {
+        let ads = JSON.parse(localStorage.getItem('sigma_parish_ads') || '[]');
+        const newAd = {
+          id: 'ad_' + new Date().getTime(),
+          title: title,
+          desc: desc,
+          author: "Sigma@Bot",
+          timestamp: new Date().getTime()
+        };
+        ads.unshift(newAd);
+        localStorage.setItem('sigma_parish_ads', JSON.stringify(ads));
+
+        loadAds();
+        closeAddAdModal();
+        alert("Ogłoszenie Parafialne opublikowane!");
+      } else {
+        alert("Proszę podać tytuł i treść ogłoszenia.");
+      }
+    }
+
+    function executeDeleteAd(adId) {
+      if (confirm("Czy na pewno chcesz usunąć to ogłoszenie?")) {
+        let ads = JSON.parse(localStorage.getItem('sigma_parish_ads') || '[]');
+        ads = ads.filter(ad => ad.id !== adId);
+        localStorage.setItem('sigma_parish_ads', JSON.stringify(ads));
+        loadAds();
+      }
+    }
+
+    // SKRYPT MOJEJ PODSTRONY
+    function loadSubpageItems() {
+      const container = document.getElementById('subpage-items-container');
+      let items = JSON.parse(localStorage.getItem('sigma_subpage_items') || '[]');
+
+      if (items.length === 0) {
+        items = [{
+          id: 'item_def_1',
+          title: "Opis Nowoczesnego Domu Jednorodzinnego",
+          type: "text",
+          link: "",
+          body: "To nowoczesny, piętrowy dom o powierzchni 160 m² z salonem, otwartą kuchnią z wyspą oraz strefą ogrodową."
+        }];
+        localStorage.setItem('sigma_subpage_items', JSON.stringify(items));
+      }
+
+      container.innerHTML = '';
+      items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'bg-black/50 border border-purple-500/20 p-4 rounded-xl space-y-2';
+
+        let mediaHtml = '';
+        if (item.type === 'video' && item.link) {
+          mediaHtml = `<div class="my-2"><a href="${item.link}" target="_blank" class="text-xs text-red-400 hover:underline"><i class="fa-solid fa-play-circle mr-1"></i> Odtwórz wideo: ${item.link}</a></div>`;
+        } else if (item.type === 'audio' && item.link) {
+          mediaHtml = `<div class="my-2"><audio controls class="w-full h-8"><source src="${item.link}" type="audio/mpeg">Twoja przeglądarka nie obsługuje audio.</audio></div>`;
+        }
+
+        itemDiv.innerHTML = `
+          <div class="flex justify-between items-start">
+            <h4 class="text-xs font-bold text-purple-300"></h4>
+            <button onclick="requestAuth('delete-subpage', '${item.id}')" title="Usuń wpis" class="bg-red-900/30 border border-red-500/30 text-red-400 hover:bg-red-800/50 hover:text-red-200 px-2 py-1 rounded-lg text-xs transition">
+              <i class="fa-solid fa-trash-can"></i> Usuń
+            </button>
+          </div>
+          ${mediaHtml}
+          <p class="text-[11px] text-slate-300 leading-relaxed"></p>
+        `;
+        itemDiv.querySelector('h4').textContent = item.title;
+        itemDiv.querySelector('p').textContent = item.body;
+        container.appendChild(itemDiv);
+      });
+    }
+
+    function openAddContentModal() {
+      document.getElementById('add-content-form').classList.remove('hidden');
+    }
+
+    function closeAddContentModal() {
+      document.getElementById('add-content-form').classList.add('hidden');
+      document.getElementById('content-title').value = '';
+      document.getElementById('content-link').value = '';
+      document.getElementById('content-body').value = '';
+    }
+
+    function publishContent() {
+      const title = document.getElementById('content-title').value.trim();
+      const type = document.getElementById('content-type').value;
+      const link = document.getElementById('content-link').value.trim();
+      const body = document.getElementById('content-body').value.trim();
+
+      if (title && (body || link)) {
+        let items = JSON.parse(localStorage.getItem('sigma_subpage_items') || '[]');
+        const newItem = {
+          id: 'item_' + new Date().getTime(),
+          title: title,
+          type: type,
+          link: link,
+          body: body
+        };
+        items.unshift(newItem);
+        localStorage.setItem('sigma_subpage_items', JSON.stringify(items));
+
+        loadSubpageItems();
+        closeAddContentModal();
+        alert("Nowy wpis został dodany na podstronę!");
+      } else {
+        alert("Wypełnij tytuł oraz treść lub link.");
+      }
+    }
+
+    function executeDeleteSubpageItem(itemId) {
+      if (confirm("Czy na pewno chcesz usunąć ten wpis z podstrony?")) {
+        let items = JSON.parse(localStorage.getItem('sigma_subpage_items') || '[]');
+        items = items.filter(item => item.id !== itemId);
+        localStorage.setItem('sigma_subpage_items', JSON.stringify(items));
+        loadSubpageItems();
+      }
+    }
+
+    window.onload = function() {
+      loadAds();
+      loadSubpageItems();
+    };
+  </script>
+
+</body>
+</html>
